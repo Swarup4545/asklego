@@ -24,7 +24,7 @@ const ProductComponents = () => {
   const totalPages = Math.ceil(products.length / cardsPerPage);
 
   const renderList = products
-    // .slice(startIndex, startIndex + cardsPerPage)
+    .slice(startIndex, startIndex + cardsPerPage)
     .map((product) => {
       const {
         id,
@@ -149,7 +149,7 @@ const ProductComponents = () => {
           <button
             key={i}
             onClick={() => handlePageClick(i)}
-            className={`text-white bg-gray-800 py-2 m-2 px-4 rounded ${
+            className={`text-white bg-gray-800 py-2 m-3 px-4 rounded ${
               i === currentPage ? "active" : ""
             }`}
           >
@@ -164,7 +164,7 @@ const ProductComponents = () => {
           <button
             key={i}
             onClick={() => handlePageClick(i)}
-            className={`text-white bg-gray-800 py-2 m-2 px-4 rounded ${
+            className={`text-white bg-gray-800 py-2 m-3 px-4 rounded ${
               i === currentPage ? "active" : ""
             }`}
           >
@@ -181,7 +181,7 @@ const ProductComponents = () => {
           <button
             key={i}
             onClick={() => handlePageClick(i)}
-            className={`text-white bg-gray-800 py-2 px-4 rounded ${
+            className={`text-white bg-gray-800 py-2 m-3 px-4 rounded ${
               i === currentPage ? "active" : ""
             }`}
           >
@@ -198,7 +198,7 @@ const ProductComponents = () => {
     <>
       <div className="mainn mt-5 bg-white m-4">
         <div className="containerr">{renderList}</div>
-        {/* <div className="caro">
+        <div className="caro">
           <button
             onClick={prev}
             disabled={startIndex === 0}
@@ -214,7 +214,7 @@ const ProductComponents = () => {
           >
             Next
           </button>
-        </div> */}
+        </div>
       </div>
     </>
   );
