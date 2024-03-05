@@ -10,12 +10,12 @@ const ProductListning = () => {
   const dispatch = useDispatch();
   const fetchProducts = async () => {
     const response = await axios
-      .get("https://fakestoreapi.com/products")
+      .get("https://dummyjson.com/products")
       .catch((err) => {
         console.log("errr", err);
       });
-    dispatch(setProducts(response.data));
-    console.log('response',response)
+    dispatch(setProducts(response.data.products));
+    console.log('responseee',response.data.products)
   };
   useEffect(() => {
     fetchProducts();
