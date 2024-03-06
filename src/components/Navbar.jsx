@@ -125,9 +125,9 @@ export default function NavBar() {
           >
             <ul className="items-center justify-center md:flex md:space-x-6 md:space-y-0">
               <li className="text-white hover:text-indigo-200 mt-1 md:mt-0">
-                <a href="javascript:void(0)" className="text-blue-300">
+                <Link to='/' className="text-blue-300">
                   Invest
-                </a>
+                </Link>
               </li>
               <li className="text-white hover:text-indigo-200 pt-10 md:pt-0">
                 <a
@@ -145,27 +145,27 @@ export default function NavBar() {
                   <ul className="items-center justify-center md:flex md:space-x-20 md:mt-10 md:space-y-0 ">
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <GiBookshelf color="black" className="mt-1" />
-                      <p className="ml-1 text-black">Learning Center</p>
+                      <Link to='/Learningcenter' className="ml-1 text-black">Learning Center</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <LuHelpingHand color="black" className="mt-1" />
-                      <p className="ml-1 text-black">Help & FAQ</p>
+                      <Link to='/heplandfaq' className="ml-1 text-black">Help & FAQ</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <MdWork color="black" className="mt-1" />
-                      <p className="ml-1 text-black">How it works</p>
+                      <Link to='/howitworks' className="ml-1 text-black">How it works</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <FaPodcast color="black" className="mt-1" />
-                      <p className="ml-1 text-black">Podcast & Webinars</p>
+                      <Link to='/prodcastandwebinars' className="ml-1 text-black">Podcast & Webinars</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <FaCity color="black" className="mt-1" />
-                      <p className="ml-1 text-black">City Guides</p>
+                      <Link to='/cityguies' className="ml-1 text-black">City Guides</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <FaBlog color="black" className="mt-1" />
-                      <p className="ml-1 text-black">Blog</p>
+                      <Link to='/blog' className="ml-1 text-black">Blog</Link>
                     </li>
                   </ul>
                 </div>
@@ -187,31 +187,31 @@ export default function NavBar() {
                   <ul className="items-center justify-center md:flex md:space-x-20 md:mt-10 md:space-y-0 ">
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500 rounded">
                       <MdCarRental color="black" className="mt-1" />
-                      <p className="ml-1 text-black">Commercial Rental</p>
+                      <Link to="/commercialrental" className="ml-1 text-black">Commercial Rental</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <MdOutlineCarRental color="black" className="mt-1" />
-                      <p className="ml-1 text-black">Vocational Rental</p>
+                      <Link to="/vocationalrental" className="ml-1 text-black">Vocational Rental</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <FaHistory color="black" className="mt-1" />
-                      <p className="ml-1 text-black">Historical Returns</p>
+                      <Link to="/hostorical" className="ml-1 text-black">Historical Returns</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <FaNewspaper color="black" className="mt-1" />
-                      <p className="ml-1 text-black">News</p>
+                      <Link to="/news" className="ml-1 text-black">News</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <GrStakeholder color="black" className="mt-1" />
-                      <p className="ml-1 text-black">stakeholder-commitments</p>
+                      <Link to="/stakeholder" className="ml-1 text-black">stakeholder-commitments</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <FaHandsHelping color="black" className="mt-1" />
-                      <p className="ml-1 text-black">Partner with us</p>
+                      <Link to="/partnerwithus" className="ml-1 text-black">Partner with us</Link>
                     </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
                       <FaMoneyBillAlt color="black" className="mt-1" />
-                      <p className="ml-1 text-black">Invest in us</p>
+                      <Link to="/investinus" className="ml-1 text-black">Invest in us</Link>
                     </li>
                   </ul>
                 </div>

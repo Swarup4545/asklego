@@ -7,25 +7,69 @@ import { GoDotFill } from "react-icons/go";
 import { TbInfoTriangle } from "react-icons/tb";
 import { BsTrophy } from "react-icons/bs";
 import { GiSandsOfTime } from "react-icons/gi";
+import { BsChevronCompactLeft,BsChevronCompactRight} from "react-icons/bs";
+import {RxDotFilled} from 'react-icons/rx'
 
 const ProductComponents = () => {
-  let percentage;
+  let intervalId;
+  
   const [startIndex, setStartIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [hoveredImage, setHoveredImage] = useState([]);
+  const [imagenum,setImagenum]= useState(0)
+  const [imagedata,setImagedata]= useState()
   const cardsPerPage = 5;
   const maxVisibleButtons = 3;
+  const [isInteracting, setIsInteracting] = useState(false); 
 
+  const handleImageHover = (index) => {
+    setImagenum(0)
+    setHoveredImage(index);
+    setIsInteracting(true);
+    console.log("my hover",index)
+  };
+  
   const products = useSelector((state) => state.allProducts.products);
 
+  function prevImage(data){
+    // const isFirst=imagenum === 0;
+    // const nextindex=isFirst ? hoveredImage.length-1 : imagenum-1
+    // const final= hoveredImage[nextImage] ? 0 : nextindex;
+    // setImagenum(nextindex)
+    setIsInteracting(false)
+    setImagenum((prevNum) => (prevNum - 1 + hoveredImage.length-1) % hoveredImage.length-1);
+  
+  }
+  function nextImage(data){
+  setIsInteracting(false)
+    setImagenum((prevNum) => (prevNum + 1) % hoveredImage.length-1);
+    
+  }
+
+  
+  useEffect(()=>{
+    if(isInteracting)
+    {
+      intervalId = setInterval(()=>{
+        setImagenum((prevNum) => prevNum < hoveredImage.length-1 ? prevNum+1:0)
+      },2000)
+    }
+    // intervalId = setInterval(()=>{
+    //   setImagenum((prevNum) => prevNum < hoveredImage.length-1 ? prevNum+1:0)
+    // },4000)
+    return () => clearInterval(intervalId); 
+    
+  },[isInteracting,handleImageHover])
+
+  console.log('phto list',hoveredImage)
   useEffect(() => {
     setStartIndex((currentPage - 1) * cardsPerPage);
   }, [currentPage]);
-
   const totalPages = Math.ceil(products.length / cardsPerPage);
-
+  let Top=cardsPerPage-1
   const renderList = products
     .slice(startIndex, startIndex + cardsPerPage)
-    .map((product) => {
+    .map((product,index) => {
       const {
         id,
         brand,
@@ -38,20 +82,45 @@ const ProductComponents = () => {
         rating,
         price,
         category,
+        images
       } = product;
 
       return (
         <div
-          className="mx-auto w-80 m-5 rounded-lg border-solid border-2 border-gray justify-center items-center justify-center overflow-hidden"
+          className="mx-auto w-80 m-5 rounded-lg border-solid border-2 border-gray justify-center items-center justify-center overflow-hidden group"
           key={id}
-        >
-          <div className="bg-red-500 h-40 w-full">
-            <img
+          onMouseEnter={() => handleImageHover(images)} onMouseLeave={() => stopInterval()} >
+          <div className="bg-red-500 h=full w-full block group-hover:hidden"
+              >
+          <img
               src={thumbnail}
-              className="h-40 w-full pt-1 hover:scale-110 transition duration-500 cursor-pointer"
+              className="block group-hover:hidden h-40 w-full pt-1 hover:scale-110 transition-transform duration-500 cursor-pointer"
               alt={title}
-            ></img>
+              
+            />
+
           </div>
+          <div className="hidden group-hover:block bg-green-500 transition-all duration-500 ease-in-out h-40 w-full">
+          <img
+                src={hoveredImage[imagenum]}
+                className="h-40 w-full z-[-1] pt-1 hover:scale-110 transform transition-transform duration-500 delay-150 cursor-pointer ease-out cursor-pointer"
+                alt={title}
+              />
+              {/* <div className={`flex relative w-72 z-[100] bottom-24 text-white`}>
+                <BsChevronCompactLeft color="white" size={20} onClick={()=>prevImage(images)}  className="ml-7 bg-gray-300 rounded-md"/>
+              <BsChevronCompactRight color="white" size={20} onClick={()=>nextImage(images)} className="ml-[223px] bg-gray-300 rounded"/>
+              </div> */}
+              <div className="flex justify-center top-2 py-2 h-[50px]">
+                {hoveredImage.map((src,index)=>{
+                  return(
+                    <div>
+                    <RxDotFilled color={imagenum === index ? 'blue' :'black'}/>
+                  </div>
+                  )
+                })}
+              </div>
+          </div>
+
           <div className="mt-2 w-full justify-center h-full rounded-b-lg">
             {/* <p className="title text-white">{title}</p> */}
             <div className="flex w-full">
@@ -124,7 +193,9 @@ const ProductComponents = () => {
           </div>
         </div>
       );
+      
     });
+    
 
   const next = () => {
     setCurrentPage((prevPage) => Math.min(totalPages, prevPage + 1));
