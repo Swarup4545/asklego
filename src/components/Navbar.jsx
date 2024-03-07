@@ -19,7 +19,7 @@ import { FaGooglePlus } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { ImFacebook2 } from "react-icons/im";
 import { TfiEmail } from "react-icons/tfi";
-
+import { FaRegWindowClose } from "react-icons/fa";
 
 export default function NavBar() {
   let hide = "hidden";

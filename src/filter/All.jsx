@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import "./product.css";
+import React from 'react'
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import Navbar from "./Navbar";
+
 import { ImLocation2 } from "react-icons/im";
 import { GoDotFill } from "react-icons/go";
 import { TbInfoTriangle } from "react-icons/tb";
@@ -9,24 +9,9 @@ import { BsTrophy } from "react-icons/bs";
 import { GiSandsOfTime } from "react-icons/gi";
 import { BsChevronCompactLeft,BsChevronCompactRight} from "react-icons/bs";
 import {RxDotFilled} from 'react-icons/rx'
-import All from "../filter/All";
-import { Link} from "react-router-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Commercial from "../filter/Commercial";
-import Recedential from "../filter/Recedential";
-import Vocational from "../filter/Vocational";
-import { VscListFilter } from "react-icons/vsc";
-import { FaRegWindowClose } from "react-icons/fa";
-import Select from "react-dropdown-select"
-
-const ProductComponents = () => {
-
-  let intervalId;
-  let hidden="hidden"
-  const products = useSelector((state) => state.allProducts.products);
-  const [item,setItem] =useState([]);
-  console.log("item",item)
-  console.log("item2",products)
+const All = () => {
+    let intervalId;
+  
   const [startIndex, setStartIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [hoveredImage, setHoveredImage] = useState([]);
@@ -35,44 +20,7 @@ const ProductComponents = () => {
   const cardsPerPage = 5;
   const maxVisibleButtons = 3;
   const [isInteracting, setIsInteracting] = useState(false); 
-  const [filterbox,setFilterbox] = useState(false)
-  const [location,setLocation] = useState([])
 
-console.log('locations',location)
-  //options for select bar for sleect locations in filter
-  const options = [
-    {
-      id:0,
-      lable: 'Angular',
-    },
-    {
-      id: 1,
-      lable: 'Bootstrap',
-    },
-    {
-      id: 2,
-      lable: 'React.js',
-    },
-    {
-      id: 3,
-      lable: 'Vue.js',
-    },
-    {
-      id: 4,
-      lable: 'pune',
-    },
-    {
-      id: 5,
-      lable: 'mumbai',
-    },
-  ]
-
-  //used for when we filter that time we not directly update the original array so we update using state
-  useEffect(() => {
-    setItem(products); // Set item state with the products
-  }, [products]); 
-
-  //when hover on card that ytime this function is call
   const handleImageHover = (index) => {
     setImagenum(0)
     setHoveredImage(index);
@@ -80,7 +28,7 @@ console.log('locations',location)
     console.log("my hover",index)
   };
   
-  
+  const products = useSelector((state) => state.allProducts.products);
 
   function prevImage(data){
     // const isFirst=imagenum === 0;
@@ -97,17 +45,6 @@ console.log('locations',location)
     
   }
 
-  //Filtering categories here
-  function filterItem(cat){
-    setStartIndex(0)
-    const updatedItems=products.filter((val)=>{return val.category === cat})
-    setItem(updatedItems)
-  }
-
-  function showfilter(){
-    setFilterbox(!filterbox)
-  }
-
   
   useEffect(()=>{
     if(isInteracting)
@@ -116,7 +53,9 @@ console.log('locations',location)
         setImagenum((prevNum) => prevNum < hoveredImage.length-1 ? prevNum+1:0)
       },2000)
     }
-    
+    // intervalId = setInterval(()=>{
+    //   setImagenum((prevNum) => prevNum < hoveredImage.length-1 ? prevNum+1:0)
+    // },4000)
     return () => clearInterval(intervalId); 
     
   },[isInteracting,handleImageHover])
@@ -126,7 +65,8 @@ console.log('locations',location)
     setStartIndex((currentPage - 1) * cardsPerPage);
   }, [currentPage]);
   const totalPages = Math.ceil(products.length / cardsPerPage);
-  const renderList = item
+  let Top=cardsPerPage-1
+  const renderList = products.filter((product) => product.category === 'laptops')
     .slice(startIndex, startIndex + cardsPerPage)
     .map((product,index) => {
       const {
@@ -323,79 +263,11 @@ console.log('locations',location)
 
     return buttons;
   };
-  
 
   return (
     <>
-   
-    <div className="h-[100%] w-[95%] m-auto mt-5 bg-white mb-4 rounded-md">
-    <div className="flex flex-wrap ml-3 pt-1">
-      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-2" onClick={()=>setItem(products)}>All</span></button>
-      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('laptops')}>Comertial</span></button>
-      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('fragrances')}>Recedential</span></button>
-      <button className="bg-gray-500 mx-3 my-2 rounded"><span className="m-3" onClick={()=>filterItem('groceries')}>Vocational</span></button>
-      <div className="flex ml-auto mr-4 bg-gray-500 w-20 h-8 rounded" onClick={showfilter}>
-      <VscListFilter className="mt-2 ml-4"/>
-        <p className="mt-1">filter</p>
-      </div>  
-    </div>
-    <div className={filterbox ? `bloack fixed transition bg-blur bottom-11 left-[40%] z-[100] h-[92vh] w-[60%] bg-white rounded`: hidden}>
-                  <div className="mr-[20px] mt-3">
-                  <FaRegWindowClose onClick={showfilter} className="ml-auto"/>
-                  </div>
-                  <div className="border-dotted border-b-2 border-black mx-10">
-                    <p className="font-bold mx-3">Type</p>
-                    
-                    <div className="flex flex-wrap ml-3 pt-1">
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-2" onClick={()=>setItem(products)}>All</span></button>
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('laptops')}>Comertial</span></button>
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('fragrances')}>Recedential</span></button>
-                      <button className="bg-gray-500 mx-3 my-2 rounded"><span className="m-3" onClick={()=>filterItem('groceries')}>Vocational</span></button>
-                    </div>
-                    
-                  </div>
-                  <div className="border-dotted border-b-2 border-black mt-5 mx-10">
-                    <p className="font-bold mx-3">Availability</p>
-                    
-                    <div className="flex flex-wrap ml-3 pt-1">
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-2" onClick={()=>setItem(products)}>All</span></button>
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('laptops')}>For sale</span></button>
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('fragrances')}>Fully Funded</span></button>
-                      <button className="bg-gray-500 mx-3 my-2 rounded"><span className="m-3" onClick={()=>filterItem('groceries')}>Comming soon</span></button>
-                    </div>
-                  </div>
-                  <div className="mt-5 mx-10">
-                    <p className="font-bold mx-3">select</p>
-                    <Select name="select"
-                    options={options}
-                    labelField="lable"
-                    valueField="id"
-                    multi
-                    onChange={(values) => setLocation(values)}>
-                    </Select>
-                  </div>
-                  <div className="border-dotted border-b-2 border-black mt-4 mx-10">
-                    <p className="font-bold mx-3">Rent Status</p>
-                    <div className="flex flex-wrap ml-3 pt-1">
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-2" onClick={()=>setItem(products)}>All</span></button>
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('laptops')}>Rented</span></button>
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('fragrances')}>Seeking Tenant</span></button>
-                    </div>
-                  </div>
-                  <div className="border-dotted border-b-2 border-black mt-4 mx-10">
-                    <p className="font-bold mx-3">Current Levrage</p>
-                    <div className="flex flex-wrap ml-3 pt-1">
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-2" onClick={()=>setItem(products)}>All</span></button>
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('laptops')}>None</span></button>
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('fragrances')}>Leveraged</span></button>
-                    </div>
-                  </div>
-                  <div className="text-center block justify-center m-auto w-full mt-4 mx-24 h-28 bg-gray-500">
-                   <button className=" w-full">CLEAR FILTER</button>
-                   <button className="bg-gray-500 mx-2 my-2 rounded w-[60%] bg-black text-white">SHOW {item.length} result</button>
-                  </div>
-                </div>
-    <div className="flex flex-wrap justify-between m-auto">{renderList ? renderList : 'nodata'}</div>
+      
+        <div className="flex flex-wrap justify-between m-auto">{renderList}</div>
         <div className="caro">
           <button
             onClick={prev}
@@ -413,28 +285,11 @@ console.log('locations',location)
             Next
           </button>
         </div>
-      </div>    
-
+     
     </>
   );
-};
-
-export default ProductComponents;
+}
 
 
 
-// const data = [
-//   { id: 1, name: 'John', age: 25 },
-//   { id: 2, name: 'Jane', age: 30 },
-//   { id: 3, name: 'Doe', age: 25 },
-// ];
-
-// // Filtering based on multiple
-// // properties using a for loop
-// const filteredData = [];
-// for (let i = 0; i < data.length; i++) {
-//   if (data[i].age === 25 && data[i].name === 'John') {
-//       filteredData.push(data[i]);
-//   }
-// }
-// console.log(filteredData);
+export default All
