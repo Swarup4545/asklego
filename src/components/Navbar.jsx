@@ -19,7 +19,6 @@ import { FaGooglePlus } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { ImFacebook2 } from "react-icons/im";
 import { TfiEmail } from "react-icons/tfi";
-import { FaRegWindowClose } from "react-icons/fa";
 
 export default function NavBar() {
   let hide = "hidden";
@@ -76,9 +75,9 @@ export default function NavBar() {
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
-            <a href="javascript:void(0)">
+            <Link to="/">
               <img src={logo} className="h-12"></img>
-            </a>
+            </Link>
             <div className="md:hidden">
               <button
                 className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -125,7 +124,7 @@ export default function NavBar() {
           >
             <ul className="items-center justify-center md:flex md:space-x-6 md:space-y-0">
               <li className="text-white hover:text-indigo-200 mt-1 md:mt-0">
-                <Link to='/' className="text-blue-300">
+                <Link to='/invest' className="text-blue-300">
                   Invest
                 </Link>
               </li>

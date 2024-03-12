@@ -19,6 +19,11 @@ import News from './about/News'
 import Stakeholder from './about/Stakeholder'
 import Partnerwithus from './about/Partnerwithus'
 import Investinus from './about/Investinus'
+import All from './filter/All'
+import Commercial from './filter/Commercial'
+import Recedential from './filter/Recedential'
+import Vocational from './filter/Vocational'
+import Home from './components/Home'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -27,7 +32,8 @@ function App() {
     <> <BrowserRouter>
     <Navbar />
     <Routes>
-          <Route path="/" element={<ProductListning/>} />
+    <Route path="/" element={<Home/>} />
+          <Route path="/invest" element={<ProductListning/>} />
           <Route path="/Learningcenter" element={<LearningCenter />} />
           <Route path="/heplandfaq" element={<HelpandFa/>} />
           <Route path="/howitworks" element={<Howitworks/>}/>
@@ -42,6 +48,7 @@ function App() {
           <Route path="/stakeholder" element={<Stakeholder/>}/>
           <Route path="/partnerwithus" element={<Partnerwithus/>}/>
           <Route path="/investinus" element={<Investinus/>}/>
+          
     </Routes>
   </BrowserRouter>
   

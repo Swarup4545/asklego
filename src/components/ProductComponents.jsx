@@ -31,12 +31,13 @@ const ProductComponents = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [hoveredImage, setHoveredImage] = useState([]);
   const [imagenum,setImagenum]= useState(0)
-  const [imagedata,setImagedata]= useState()
+  // const [imagedata,setImagedata]= useState()
   const cardsPerPage = 5;
   const maxVisibleButtons = 3;
   const [isInteracting, setIsInteracting] = useState(false); 
   const [filterbox,setFilterbox] = useState(false)
   const [location,setLocation] = useState([])
+  const [filtermultipel,setFiltermultipel]= useState([])
 
 console.log('locations',location)
   //options for select bar for sleect locations in filter
@@ -102,6 +103,46 @@ console.log('locations',location)
     setStartIndex(0)
     const updatedItems=products.filter((val)=>{return val.category === cat})
     setItem(updatedItems)
+  }
+
+  function filterMultipel(cat){
+    const isCategoryPresent = filtermultipel.includes(cat);
+
+  // If the category is present, remove it; otherwise, add it
+  setFiltermultipel((prevstate) =>
+    isCategoryPresent
+      ? prevstate.filter((val) => val !== cat)
+      : [...prevstate, cat]
+  );
+  };
+  console.log("filtering",filtermultipel)
+
+  function Show()
+  {
+    let filteredItems=item
+    if(filtermultipel.includes("Apple"))
+    {
+       const ne=products.filter((val)=>{return val.brand === "Apple"})
+       setItem(ne)
+    }
+    if(filtermultipel.includes("Huawei P30"))
+    {
+      const ne=products.filter((val)=>{return val.title === "Huawei P30"})
+      setItem(ne)
+    }
+    if(filtermultipel.includes("1499"))
+    {
+      const ne=products.filter((val)=>{return val.price === 1499})
+      setItem(ne)
+    }
+    if (["Apple", "Huawei P30"].every(value => filtermultipel.includes(value))) {
+      console.log("Both Apple and Huwae are present in filtermultipel");
+      // If neither "Apple" nor "Huawei P30" is present, filter based on other values
+      const ne=item.filter((val)=>{return val.brand === "Apple" || val.title === "Huawei P30"})
+      
+      setItem(ne)
+    }
+    
   }
 
   function showfilter(){
@@ -361,7 +402,7 @@ console.log('locations',location)
                       <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-2" onClick={()=>setItem(products)}>All</span></button>
                       <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('laptops')}>For sale</span></button>
                       <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('fragrances')}>Fully Funded</span></button>
-                      <button className="bg-gray-500 mx-3 my-2 rounded"><span className="m-3" onClick={()=>filterItem('groceries')}>Comming soon</span></button>
+                      <button className="bg-gray-500 mx-3 my-2 rounded"><span className="m-3" onClick={()=>filterMultipel('1499')}>Comming soon</span></button>
                     </div>
                   </div>
                   <div className="mt-5 mx-10">
@@ -378,8 +419,8 @@ console.log('locations',location)
                     <p className="font-bold mx-3">Rent Status</p>
                     <div className="flex flex-wrap ml-3 pt-1">
                       <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-2" onClick={()=>setItem(products)}>All</span></button>
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('laptops')}>Rented</span></button>
-                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterItem('fragrances')}>Seeking Tenant</span></button>
+                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterMultipel('Apple')}>Rented</span></button>
+                      <button className="bg-gray-500 mx-2 my-2 rounded"><span className="m-3" onClick={()=>filterMultipel('Huawei P30')}>Seeking Tenant</span></button>
                     </div>
                   </div>
                   <div className="border-dotted border-b-2 border-black mt-4 mx-10">
@@ -392,7 +433,7 @@ console.log('locations',location)
                   </div>
                   <div className="text-center block justify-center m-auto w-full mt-4 mx-24 h-28 bg-gray-500">
                    <button className=" w-full">CLEAR FILTER</button>
-                   <button className="bg-gray-500 mx-2 my-2 rounded w-[60%] bg-black text-white">SHOW {item.length} result</button>
+                   <button className="bg-gray-500 mx-2 my-2 rounded w-[60%] bg-black text-white" onClick={Show}>SHOW {item.length} result</button>
                   </div>
                 </div>
     <div className="flex flex-wrap justify-between m-auto">{renderList ? renderList : 'nodata'}</div>
