@@ -24,6 +24,7 @@ import Commercial from './filter/Commercial'
 import Recedential from './filter/Recedential'
 import Vocational from './filter/Vocational'
 import Home from './components/Home'
+import AboutUs from './about/AboutUs'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -41,6 +42,7 @@ function App() {
           <Route path="/cityguies" element={<Cityguides/>}/>
           <Route path="/blog" element={<Blog/>}/>
           {/* about section */}
+          <Route path="/Aboutus" element={<AboutUs/>}/>
           <Route path="/commercialrental" element={<CommercialRental/>}/>
           <Route path="/vocationalrental" element={<VocationalRental/>}/>
           <Route path="/hostorical" element={<HistoricalReturns/>}/>

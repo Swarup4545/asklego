@@ -71,7 +71,7 @@ export default function NavBar() {
   }
  
   return (
-    <nav className="w-full bg-white shadow-md">
+    <nav className="w-full bg-white shadow-3xl border-b border-gray-200">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
@@ -132,14 +132,14 @@ export default function NavBar() {
                 <a
                   href="javascript:void(0)"
                   className="text-black transition hover:text-gray-500 duration-500"
-                  onClick={show}
+                  onMouseEnter={show}
                 >
                   Learn
                 </a>
                 <div
                   className={`w-full md:absolute left-0 bg-white md:mt-7 h-40 shadow-md ${
                     showLearn ? "" : hide
-                  }`}
+                  }`} onMouseLeave={show}
                 >
                   <ul className="items-center justify-center md:flex md:space-x-20 md:mt-10 md:space-y-0 ">
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500">
@@ -173,7 +173,7 @@ export default function NavBar() {
               <li className="text-white hover:text-indigo-200 pt-10 md:pt-0">
                 <a
                   href="javascript:void(0)"
-                  onClick={show1}
+                  onClick={show1} onMouseEnter={show1}
                   className="text-black transition hover:text-gray-500 duration-500"
                 >
                   About
@@ -181,9 +181,13 @@ export default function NavBar() {
                 <div
                   className={`w-full md:absolute left-0 bg-white md:mt-7 h-64 md:h-40 shadow-md ${
                     showAbout ? "" : hide
-                  }`}
+                  }`} onMouseLeave={show1}
                 >
-                  <ul className="items-center justify-center md:flex md:space-x-20 md:mt-10 md:space-y-0 ">
+                  <ul className="items-center justify-center md:flex md:space-x-10 md:mt-10 md:space-y-0 ">
+                  <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500 rounded">
+                      <MdCarRental color="black" className="mt-1" />
+                      <Link to="/Aboutus" className="ml-1 text-black">About us</Link>
+                    </li>
                     <li className="flex sm:mt-2 md:mt-0 transition hover:bg-gray-500 duration-500 rounded">
                       <MdCarRental color="black" className="mt-1" />
                       <Link to="/commercialrental" className="ml-1 text-black">Commercial Rental</Link>
@@ -219,14 +223,14 @@ export default function NavBar() {
                 <a
                   href="javascript:void(0)"
                   className="text-black transition hover:text-gray-500 duration-500"
-                  onClick={show3}
+                  onClick={show3} onMouseEnter={show3}
                 >
                   User
                 </a>
                 <div
                   className={`w-full md:absolute left-0 bg-white md:mt-7 h-72 shadow-md ${
                     showUser ? "" : hide
-                  }`}
+                  }`} onMouseLeave={show3}
                 >
                   <div className="md:space-x-20 md:flex justify-center bg-white md:mt-12 justify-center md:space-y-0 justify-evenly">
                   <div className="h-36 bg-white-300 border-solid border-2 border-black rounded w-96">
